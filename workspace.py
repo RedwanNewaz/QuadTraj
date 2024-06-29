@@ -20,7 +20,7 @@ def draw_cube(ax, position, size):
     ]
 
     # Create a 3D polygon collection for the sides
-    ax.add_collection3d(Poly3DCollection(sides, facecolors='gray', linewidths=1, edgecolors='r', alpha=0.25))
+    ax.add_collection3d(Poly3DCollection(sides, facecolors='gray', linewidths=1, edgecolors='r', alpha=0.5))
 
 if __name__ == '__main__':
 
