@@ -55,7 +55,7 @@ if __name__ == '__main__':
 
 
     # control parameter
-    robot = Quadrotor(show_animation=True)
+    robot = Quadrotor(x=1.0, y=2.0)
 
     # Define the obstacle positions and size with cubes
     cube_positions = [
@@ -69,7 +69,7 @@ if __name__ == '__main__':
 
     # Simulation loop
     goal_pos = robot.goal_pos = [2.3, 3, 3.5]
-    num_trajectories = 15 * 3
+    num_trajectories = num_subdivision * 3
     safety_dist = 0.345 * 2
     max_steps = 100
     manager = getObstacleChecker()
