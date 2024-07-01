@@ -3,7 +3,7 @@ import numpy as np
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 
-def draw_cube(ax, position, size):
+def draw_cube(ax, position, size, color='gray'):
     # Create a list of vertices for the cube
     r = [-size / 2, size / 2]
     vertices = np.array([[x, y, z] for x in r for y in r for z in r])
@@ -20,7 +20,7 @@ def draw_cube(ax, position, size):
     ]
 
     # Create a 3D polygon collection for the sides
-    ax.add_collection3d(Poly3DCollection(sides, facecolors='gray', linewidths=1, edgecolors='r', alpha=0.5))
+    ax.add_collection3d(Poly3DCollection(sides, facecolors=color, linewidths=1, edgecolors='k', alpha=0.85))
 
 if __name__ == '__main__':
 

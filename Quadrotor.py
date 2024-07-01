@@ -7,7 +7,7 @@ Author: Daniel Ingram (daniel-s-ingram)
 from math import cos, sin
 import numpy as np
 import matplotlib.pyplot as plt
-
+from workspace import draw_cube
 class Quadrotor():
     def __init__(self, x=0, y=0, z=0, roll=0, pitch=0, yaw=0, size=0.25, show_animation=True):
         self.p1 = np.array([size / 2, 0, 0, 1]).T
@@ -19,6 +19,8 @@ class Quadrotor():
         self.y_data = []
         self.z_data = []
         self.show_animation = show_animation
+        self.obstacles = None
+        self.goal_pos = [2.3, 3, 3.5]
 
         if self.show_animation:
             plt.ion()
@@ -30,6 +32,9 @@ class Quadrotor():
             self.ax = fig.add_subplot(111, projection='3d')
 
         self.update_pose(x, y, z, roll, pitch, yaw)
+    def set_obstacles(self, obstacles, size):
+        self.obstacles = obstacles
+        self.obs_size = size
 
     def update_pose(self, x, y, z, roll, pitch, yaw):
         self.x = x
@@ -45,6 +50,11 @@ class Quadrotor():
         if self.show_animation:
             self.plot()
 
+    def get_position(self):
+        return np.array([self.x, self.y, self.z])
+
+    def get_orientation(self):
+        return self.yaw
     def transformation_matrix(self):
         x = self.x
         y = self.y
@@ -80,8 +90,16 @@ class Quadrotor():
 
         self.ax.plot(self.x_data, self.y_data, self.z_data, 'b:')
 
-        plt.xlim(-5, 5)
-        plt.ylim(-5, 5)
-        self.ax.set_zlim(0, 10)
+        if self.obstacles is not None:
+            for pos in self.obstacles:
+                draw_cube(self.ax, pos, self.obs_size)
+            draw_cube(self.ax, self.goal_pos, self.obs_size, color='r')
+
+        # plt.xlim(-5, 5)
+        # plt.ylim(-5, 5)
+        # self.ax.set_zlim(0, 10)
+        self.ax.set_xlim3d(-1, 5)
+        self.ax.set_ylim3d(-1, 5)
+        self.ax.set_zlim3d(-1, 5)
 
         plt.pause(0.1)
