@@ -102,4 +102,4 @@ class Quadrotor():
         self.ax.set_ylim3d(-1, 5)
         self.ax.set_zlim3d(-1, 5)
 
-        plt.pause(0.1)
+        plt.pause(0.0001)

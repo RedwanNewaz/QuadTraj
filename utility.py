@@ -1,5 +1,5 @@
 import numpy as np
-
+from configparser import ConfigParser
 def index_1d_to_4d(index, shape):
     # shape is a tuple representing the dimensions of the 4D matrix (d1, d2, d3, d4)
     d1, d2, d3, d4 = shape
@@ -46,3 +46,8 @@ if __name__ == '__main__':
     sample_size = np.prod([num_subdivision] * dimesion)
     index = np.random.uniform(0, sample_size, 1).astype(int)
     indices_4d, value = get_action_value(index, ActionSpace)
+
+    config = ConfigParser()
+    config.read('test/test1.txt')
+
+    print(x)
