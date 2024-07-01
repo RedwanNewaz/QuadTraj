@@ -23,12 +23,12 @@ def generate_scalar_values(cube_size, num_divisions):
     scalar_values = np.random.rand(num_divisions, num_divisions, num_divisions)
     return scalar_values
 
-def plot_voxel_grid_with_scalar_colors(cube_size, num_divisions):
+def plot_voxel_grid_with_scalar_colors(scalar_values, cube_size, num_divisions):
     # Generate voxel positions
-    voxel_positions = discretize_cube_into_voxels(cube_size, num_divisions)
+    # voxel_positions = discretize_cube_into_voxels(cube_size, num_divisions)
 
     # Generate scalar values
-    scalar_values = generate_scalar_values(cube_size, num_divisions)
+    # scalar_values = generate_scalar_values(cube_size, num_divisions)
 
     # Normalize scalar values to [0, 1] for colormap mapping
     norm = plt.Normalize(vmin=np.min(scalar_values), vmax=np.max(scalar_values))
@@ -47,7 +47,7 @@ def plot_voxel_grid_with_scalar_colors(cube_size, num_divisions):
     ax = fig.add_subplot(111, projection='3d')
 
     # Plot voxels using ax.voxels with scalar-based colors and 50% transparency
-    ax.voxels(np.ones((num_divisions, num_divisions, num_divisions)), facecolors=colors, edgecolors='k')
+    p = ax.voxels(np.ones((num_divisions, num_divisions, num_divisions)), facecolors=colors, edgecolors='k')
 
     # Set labels
     ax.set_xlabel('X')
@@ -59,6 +59,12 @@ def plot_voxel_grid_with_scalar_colors(cube_size, num_divisions):
     ax.set_ylim([0, num_divisions])
     ax.set_zlim([0, num_divisions])
 
+    m = cm.ScalarMappable(cmap=cmap, norm=norm)
+    m.set_array([])
+
+
+    fig.colorbar(m, ax=ax)
+
     plt.title('Voxel Grid Visualization with Scalar Colors and 50% Transparency')
     plt.show()
 
@@ -67,4 +73,6 @@ if __name__ == '__main__':
     cube_size = 10.0
     num_divisions = 5
 
-    plot_voxel_grid_with_scalar_colors(cube_size, num_divisions)
+    # plot_voxel_grid_with_scalar_colors(cube_size, num_divisions)
+    scalar_values = generate_scalar_values(cube_size, num_divisions)
+    print(scalar_values.shape)

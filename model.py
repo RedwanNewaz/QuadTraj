@@ -1,18 +1,35 @@
 import numpy as np
 
 class QuadrotorKinematics:
-    def __init__(self, initial_position=[0.0, 0.0, 0.0], initial_orientation=np.eye(3)):
+    def __init__(self, initial_position=[0.0, 0.0, 0.0], initial_orientation=0):
         self.position = np.array(initial_position)
-        self.rotation_matrix = initial_orientation
+        self.rotation_matrix = self.yaw_to_rotation_matrix(initial_orientation)
+
+    @staticmethod
+    def yaw_to_rotation_matrix(yaw):
+        """
+        Convert yaw angle to a 3x3 rotation matrix.
+        Parameters:
+        yaw (float): The yaw angle in radians.
+        Returns:
+        np.ndarray: A 3x3 rotation matrix.
+        """
+
+        cos_theta = np.cos(yaw)
+        sin_theta = np.sin(yaw)
+        rotation_matrix = np.array([
+            [cos_theta, -sin_theta, 0],
+            [sin_theta, cos_theta, 0],
+            [0, 0, 1]
+        ])
+        return rotation_matrix
 
     def predict_motion(self, vx, vy, vz, wz, dt):
 
         # Update orientation (rotation matrix) based on angular velocity around z-axis
         omega_z_dt = wz * dt
-        delta_R = np.array([[0, -omega_z_dt, 0],
-                            [omega_z_dt, 0, 0],
-                            [0, 0, 0]])
-        rotation_increment = np.eye(3) + delta_R
+
+        rotation_increment = self.yaw_to_rotation_matrix(omega_z_dt)
         self.rotation_matrix = np.dot(self.rotation_matrix, rotation_increment)
 
         # Update position based on linear velocities
@@ -57,7 +74,7 @@ class QuadrotorKinematics:
 
     def get_orientation(self):
         phi, theta, psi = self.rotation_matrix_to_euler_angles(self.rotation_matrix)
-        return psi
+        return phi
 
 
 
