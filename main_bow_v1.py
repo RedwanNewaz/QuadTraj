@@ -120,7 +120,7 @@ if __name__ == '__main__':
 
     parser = ArgumentParser()
     parser.add_argument("--config", type=str, default="test/test4.txt")
-    parser.add_argument("--num_sub_div", type=int, default=15)
+    parser.add_argument("--num_sub_div", type=int, default=25)
     parser.add_argument("--num_dim", type=int, default=4)
     parser.add_argument("--cube_size", type=float, default=0.5)
 
