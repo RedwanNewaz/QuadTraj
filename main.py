@@ -53,9 +53,10 @@ if __name__ == '__main__':
     num_trajectories = 15 * 4
     weight = 1.15
     safety_dist = 1.0
+    max_steps = 100
     manager = getObstacleChecker()
 
-    for _ in range(100):
+    for _ in range(max_steps):
         best_traj = None
         best_traj_cost = float('inf')
 
