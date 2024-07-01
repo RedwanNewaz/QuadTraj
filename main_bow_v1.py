@@ -88,7 +88,7 @@ def main(args):
             f=fun_target_function,
             constraint=constraint,
             pbounds=pbounds,
-            verbose=0,  # verbose = 1 prints only when a maximum is observed, verbose = 0 is silent
+            verbose=1,  # verbose = 1 prints only when a maximum is observed, verbose = 0 is silent
             random_state=num_trajectories,
         )
 
@@ -119,8 +119,8 @@ def main(args):
 if __name__ == '__main__':
 
     parser = ArgumentParser()
-    parser.add_argument("--config", type=str, default="test/test1.txt")
-    parser.add_argument("--num_sub_div", type=int, default=5)
+    parser.add_argument("--config", type=str, default="test/test4.txt")
+    parser.add_argument("--num_sub_div", type=int, default=15)
     parser.add_argument("--num_dim", type=int, default=4)
     parser.add_argument("--cube_size", type=float, default=0.5)
 
