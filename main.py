@@ -26,12 +26,6 @@ def sample_trajectories(robot, num_trajectories):
         traj = [[x, y, z, psi] for x, y, z, psi in compute_short_traj(quad_t, value)]
         yield np.array(traj)
 
-def eval_trajectory(manager, goal_pos, traj):
-    obs_dist = min(minCollisionDistance(pos[:3], manager) for pos in traj)
-    goal_dist = min(goalDistance(pos[:3], goal_pos) for pos in traj)
-    cost = goal_dist - min(obs_dist, 2.0) * weight
-    return cost
-
 
 if __name__ == '__main__':
     num_subdivision = 25
@@ -58,6 +52,7 @@ if __name__ == '__main__':
     goal_pos = robot.goal_pos = [2.3, 3, 3.5]
     num_trajectories = 15 * 4
     weight = 1.15
+    safety_dist = 1.0
     manager = getObstacleChecker()
 
     for _ in range(100):
@@ -67,7 +62,7 @@ if __name__ == '__main__':
         for traj in sample_trajectories(robot, num_trajectories):
             obs_dist = min(minCollisionDistance(pos[:3], manager) for pos in traj)
             goal_dist = min(goalDistance(pos[:3], goal_pos) for pos in traj)
-            cost = goal_dist - min(obs_dist, 2.0) * weight
+            cost = goal_dist - min(obs_dist, safety_dist) * weight
             if cost < best_traj_cost:
                 best_traj = traj
                 best_traj_cost = cost
