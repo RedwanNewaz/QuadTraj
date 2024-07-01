@@ -56,7 +56,7 @@ if __name__ == '__main__':
     max_steps = 100
     manager = getObstacleChecker()
 
-    for _ in range(max_steps):
+    while True:
         best_traj = None
         best_traj_cost = float('inf')
 
@@ -69,6 +69,9 @@ if __name__ == '__main__':
                 best_traj_cost = cost
         # show the best trajectory and execute the control
         x, y, z, psi = best_traj[0]
+        if minCollisionDistance([x, y, z], manager) < 0.345:
+            print('collide')
+            continue
         robot.update_pose(x, y, z, 0, 0, psi)
 
         current = np.array([x,  y, z])
