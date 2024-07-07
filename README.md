@@ -4,7 +4,7 @@
 
 **Test 1**
 
-results/test1.mp4
+https://github.com/RedwanNewaz/QuadTraj/results/test1.mp4
 
 **Test 2**
 
