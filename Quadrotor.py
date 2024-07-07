@@ -3,12 +3,13 @@ Class for plotting a quadrotor
 
 Author: Daniel Ingram (daniel-s-ingram)
 """
-
+import os.path
 from math import cos, sin
 import numpy as np
 import matplotlib.pyplot as plt
 from workspace import draw_cube
 class Quadrotor():
+    frame_id = 0
     def __init__(self, x=0, y=0, z=0, roll=0, pitch=0, yaw=0, size=0.25, show_animation=True):
         self.p1 = np.array([size / 2, 0, 0, 1]).T
         self.p2 = np.array([-size / 2, 0, 0, 1]).T
@@ -103,3 +104,9 @@ class Quadrotor():
         self.ax.set_zlim3d(-1, 5)
 
         plt.pause(0.0001)
+        # save frame
+        # self.frame_id += 1
+        # outfolder = os.path.join('results', 'test3-2')
+        # os.makedirs(outfolder, exist_ok=True)
+        # path = os.path.join(outfolder, "%04d.png" % self.frame_id)
+        # plt.savefig(path)
