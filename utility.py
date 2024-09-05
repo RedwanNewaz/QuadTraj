@@ -47,7 +47,5 @@ if __name__ == '__main__':
     index = np.random.uniform(0, sample_size, 1).astype(int)
     indices_4d, value = get_action_value(index, ActionSpace)
 
-    config = ConfigParser()
-    config.read('test/test1.txt')
-
-    print(x)
+    print(ActionSpace.shape)
+    print(sample_size)

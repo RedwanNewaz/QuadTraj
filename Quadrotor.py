@@ -25,12 +25,14 @@ class Quadrotor():
 
         if self.show_animation:
             plt.ion()
-            fig = plt.figure()
+            fig = plt.figure(figsize=(16, 16))
+
             # for stopping simulation with the esc key.
             fig.canvas.mpl_connect('key_release_event',
                     lambda event: [exit(0) if event.key == 'escape' else None])
 
             self.ax = fig.add_subplot(111, projection='3d')
+            fig.tight_layout()
 
         self.update_pose(x, y, z, roll, pitch, yaw)
     def set_obstacles(self, obstacles, size):
@@ -103,10 +105,11 @@ class Quadrotor():
         self.ax.set_ylim3d(-1, 5)
         self.ax.set_zlim3d(-1, 5)
 
+
         plt.pause(0.0001)
         # save frame
-        # self.frame_id += 1
-        # outfolder = os.path.join('results', 'test3-2')
-        # os.makedirs(outfolder, exist_ok=True)
-        # path = os.path.join(outfolder, "%04d.png" % self.frame_id)
-        # plt.savefig(path)
+        self.frame_id += 1
+        outfolder = os.path.join('results', 'test4')
+        os.makedirs(outfolder, exist_ok=True)
+        path = os.path.join(outfolder, "%04d.png" % self.frame_id)
+        plt.savefig(path)

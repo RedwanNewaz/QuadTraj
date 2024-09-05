@@ -12,7 +12,7 @@ from configparser import ConfigParser
 
 def compute_short_traj(quad, action):
     # Simulation parameters
-    dt = 0.1  # Time step in seconds
+    dt = 0.05  # Time step in seconds
     pred_time = 2 * dt # Total simulation time in seconds
     sim_time = 0
     vx, vy, vz, wz = action
@@ -113,12 +113,12 @@ def main(args):
         if np.linalg.norm(current - target) < args.cube_size:
             print('goal found ! collide = ', num_collide)
             break
-
+    plt.pause(10000)
 
 if __name__ == '__main__':
 
     parser = ArgumentParser()
-    parser.add_argument("--config", type=str, default="test/test1.txt")
+    parser.add_argument("--config", type=str, default="test/test4.txt")
     parser.add_argument("--num_sub_div", type=int, default=25)
     parser.add_argument("--num_dim", type=int, default=4)
     parser.add_argument("--cube_size", type=float, default=0.5)
